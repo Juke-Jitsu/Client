@@ -15,12 +15,12 @@ var ngAnnotate = require('browserify-ngannotate');
 
 gulp.task('build-all', ['client-css'], function () {
 
-    return browserify('./public/client/app/main')
+    return browserify('./src/main')
             .transform(ngAnnotate)
             .bundle()
             .pipe(source('app.js'))
             .pipe(streamify(uglify()))
-            .pipe(gulp.dest('././public/client/dist'));
+            .pipe(gulp.dest('./dist'));
 
 });
 
@@ -29,28 +29,28 @@ gulp.task('client-css', function () {
         'node_modules/angular-material/angular-material.min.css'
     ])
         .pipe(concat('style.css'))
-        .pipe(gulp.dest('./public/client/dist'));
+        .pipe(gulp.dest('./dist'));
 
 });
 
 gulp.task('debug', function () {
 
-    return browserify('./public/client/app/main')
+    return browserify('./src/main')
             .transform(ngAnnotate)
             .bundle()
             .pipe(source('app.js'))
-            .pipe(gulp.dest('././public/client/dist'));
+            .pipe(gulp.dest('./dist'));
 
 });
 
 
 gulp.task('build-client', function () {
 
-    return browserify('./public/client/app/main')
+    return browserify('./src/main')
             .transform(ngAnnotate)
             .bundle()
             .pipe(source('app.js'))
             .pipe(streamify(uglify()))
-            .pipe(gulp.dest('././public/client/dist'));
+            .pipe(gulp.dest('./dist'));
 
 });

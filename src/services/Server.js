@@ -1,7 +1,7 @@
 /* 
  * The MIT License
  *
- * Copyright 2016 Eli.
+ * Copyright 2016 Eli Davis.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,37 +23,36 @@
  */
 
 
-module.exports = {
-    /**
-     * Message types that the Server recieves from the client
-     */
-    ToServerMessages: {
-        /*
-         * {
-         *     albumArtRef: [],
-         *     artist: "",
-         *     durationMillis: "",
-         *     genre: "",
-         *     nid: "",
-         *     title: ""
-         * }
-         */
-        AddToQ: "AddToQ",
-        /*
-         * {
-         *    songId: string of characters
-         *    vote: -1 | 0 | 1
-         * }
-         */
-        SetVote: "SetVote"
-    },
-    /**
-     * Message types that the client recieves from the server
-     */
-    ToClientMessages: {
-        /**
-         * []
-         */
-        EntireQ: "EntireQ"
-    }
-};
+var SocketMessageType = require('juke-protocols');
+var ToClientMessages = SocketMessageType.ToClientMessages;
+var ToServerMessages = SocketMessageType.ToServerMessages;
+
+var Rx = require('rx');
+module.exports = Server;
+
+/*
+ * @ngInject
+ */
+function Server() {
+
+    var self = this;
+    
+    var socket = io();
+    
+    self.server$ = new Rx.Subject();
+    
+    self.entireQueue$ = new Rx.Subject();
+    
+    socket.on(ToClientMessages.EntireQ, function(queue) {
+        self.entireQueue$.onNext(queue);
+    });
+    
+    self.addSongToQueue = function(song) {
+        socket.emit(ToServerMessages.AddToQ, song);
+    };
+
+    self.setVoteOnSong = function(nid, vote){
+        
+    };
+
+}
