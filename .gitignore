@@ -30,8 +30,8 @@ coverage
 .grunt
 
 # Gulp builds
-public/client/dist/app.js
-public/client/dist/style.css
+dist/app.js
+dist/style.css
 
 # node-waf configuration
 .lock-wscript
