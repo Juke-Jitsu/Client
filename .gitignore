@@ -1,6 +1,9 @@
 #config and sensitive info
 config.json
 
+#we build our dist from src now
+dist
+
 #no jetbrains shtuff for now
 .idea/*
 
