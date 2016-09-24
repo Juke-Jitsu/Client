@@ -26,8 +26,9 @@
 var SocketMessageType = require('juke-protocols');
 var ToClientMessages = SocketMessageType.ToClientMessages;
 var ToServerMessages = SocketMessageType.ToServerMessages;
-
+var Fingerprint = require('fingerprintjs2');
 var Rx = require('rx');
+
 module.exports = Server;
 
 /*
@@ -36,23 +37,41 @@ module.exports = Server;
 function Server() {
 
     var self = this;
-    
+
     var socket = io();
-    
+
+    var ourId = null;
+
+    new Fingerprint().get(function (result, components, toast) {
+        ourId = result;
+    });
+
     self.server$ = new Rx.Subject();
-    
+
     self.entireQueue$ = new Rx.Subject();
-    
-    socket.on(ToClientMessages.EntireQ, function(queue) {
+
+    socket.on(ToClientMessages.EntireQ, function (queue) {
+        console.log(queue);
         self.entireQueue$.onNext(queue);
     });
-    
-    self.addSongToQueue = function(song) {
+
+    self.addSongToQueue = function (song) {
         socket.emit(ToServerMessages.AddToQ, song);
     };
 
-    self.setVoteOnSong = function(nid, vote){
+    self.setVoteOnSong = function (nid, vote) {
         
+        if (!ourId) {
+            toast.informUser("Unable to place vote");
+            console.log("User does not have a finger print");
+            return;
+        }
+
+        socket.emit(ToServerMessages.SetVote, {
+            nid: nid,
+            uid: ourId,
+            vote: vote
+        });
     };
 
 }

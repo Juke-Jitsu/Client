@@ -29,7 +29,7 @@ module.exports = VotingManager;
 /*
  * @ngInject
  */
-function VotingManager($http, Toast, sessionManager) {
+function VotingManager($http, Toast, sessionManager, Server) {
 
     var self = this;
     
@@ -83,49 +83,11 @@ function VotingManager($http, Toast, sessionManager) {
     });
 
     self.upvoteSong = function (nid) {
-
-        $http( {
-            method: 'POST',
-            url: '/api/upvote',
-            headers: {
-                'Content-Type': "application/json"
-            },
-            data: {"nid": nid}
-        } ).then(function successCallback(response) {
-            // this callback will be called asynchronously
-            // when the response is available
-            response.time = Date.now();
-            self.voting.onNext(response.data);
-            _addToHistory(response.data);
-        }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-            console.log(response.data);
-            Toast.informUser("Unable to upvote song");
-        } );
+        Server.setVoteOnSong(nid, 1);
     };
 
     self.downvoteSong = function (nid) {
-
-        $http({
-            method: 'POST',
-            url: '/api/downvote',
-            headers: {
-                'Content-Type': "application/json"
-            },
-            data: { "nid": nid }
-        }).then(function successCallback(response) {
-            // this callback will be called asynchronously
-            // when the response is available
-            response.time = Date.now();
-            self.voting.onNext(response.data);
-            _addToHistory(response.data);
-        }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-            _console.log(response.data);
-            Toast.informUser("Unable to downvote song");
-        } );
+        Server.setVoteOnSong(nid, -1);
     };
 
 }
