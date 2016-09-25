@@ -67,7 +67,7 @@ gulp.task('concat-css', ['vendor-css', 'juke-css'], function () {
 
 });
 
-gulp.task('debug', function () {
+gulp.task('debug', ['copy', 'concat-css'], function () {
 
     return browserify('./src/main')
             .transform(ngAnnotate)
