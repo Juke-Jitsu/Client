@@ -22,13 +22,12 @@
  * THE SOFTWARE.
  */
 
-var app = require("angular").module('Juke-Jitsu');
-app.directive('jjQueue',                    require('./QueueDirective.js'));
-app.directive('jjSidenavToggleButton',      require('./SidenavToggleDirective.js'));
-app.directive('jjContent',                  require('./ContentDirective.js'));
-app.directive('jjSearch',                   require('./SearchDirective.js'));
-app.directive('jjSongListItem',             require('./SongListItemDirective.js'));
-app.directive('jjSongView',                 require('./SongViewDirective.js'));
-app.directive('jjSidebarNav',               require('./SidebarNavDirective.js'));
-app.directive('jjSongOptions',              require('./SongAvailableOptionsDirective.js'));
-app.directive('jjPage',                     require('./PageDirective.js'));
+module.exports = PageDirective;
+
+function PageDirective() {
+
+    return {
+        'restrict': 'E',
+        'templateUrl': 'partial/page-directive.html'
+    };
+}

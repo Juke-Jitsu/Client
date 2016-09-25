@@ -7,15 +7,15 @@
     </md-button>-->
 
     <jj-song-options flex-xs="90" hide-gt-xs song="song" ></jj-song-options>
-    
-    <div md-whiteframe="8" flex-xs="90" flex-gt-xs="50" layout-padding flex-order-gt-xs="2">
-        <h2 style="margin: 0px;">{{song.title}}</h2>
-        <h4 style="margin: 0px;"> By: {{song.artist}}</h4>
+
+    <div class="song-view-stats" md-whiteframe="8" flex-xs="90" flex-gt-xs="50" layout-padding flex-order-gt-xs="2">
+        <h2>{{song.title}}</h2>
+        <h4>By: {{song.artist}}</h4>
         <p>
             ({{song.genre}}) Duration: {{song.durationMillis| songTime}}
         </p>
 
-        
+
 
         <jj-song-options flex-xs="90" hide-xs song="song"></jj-song-options>
     </div>
