@@ -52,6 +52,8 @@ function Server() {
 
     self.greetingMessage$ = new Rx.ReplaySubject(1);
 
+    self.nowPlaying$ = new Rx.ReplaySubject(1);
+
     socket.on(ToClientMessages.EntireQ, function (queue) {
         console.log(queue);
         self.entireQueue$.onNext(queue);
@@ -76,14 +78,20 @@ function Server() {
         });
     };
 
+    socket.on(ToClientMessages.NowPlaying, function (message) {
+        self.nowPlaying$.onNext(message);
+    });
+
+    self.getNowPlaying$ = function() {
+        return self.nowPlaying$;
+    }
+
     socket.on(ToClientMessages.GreetingMessage, function (message) {
-        console.log(message);
         self.greetingMessage$.onNext(message);
     });
 
     self.getGreetingMessage$ = function() {
         return self.greetingMessage$;
     }
-
 
 }

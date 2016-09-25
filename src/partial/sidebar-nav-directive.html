@@ -1,17 +1,10 @@
 <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')"  flex>
 
-    <md-toolbar class="md-tall md-hue-2" layout="column" style="min-height:360px; max-height:360px;">
-        <img style="margin-top:10%;margin-left:10%;width:80%;" src="img/circle/icon_512x512.png">
-        <p class="sidebar-nav-title">Juke-Jitsu</p>
+    <md-toolbar class="md-tall md-hue-2" layout="column" style="min-height:305px; max-height:360px;">
+        <jj-now-playing></jj-now-playing>
     </md-toolbar>
 
     <md-list>
-        <md-item>
-            <div class="md-list-item-text" >
-                <md-button ng-click="nowPlaying()"><md-icon class="sidebar-nav-icon" md-svg-src="../svg/ic_play_arrow_white_24px.svg" aria-label="Now Playing "></md-icon>  Now Playing</md-button>
-            </div>
-        </md-item>
-
         <md-item>
             <div class="md-list-item-text">
                 <md-button ng-click="queue()"><md-icon class="sidebar-nav-icon" md-svg-src="../svg/ic_queue_music_white_24px.svg" aria-label="Queue "></md-icon>  Queue</md-button>

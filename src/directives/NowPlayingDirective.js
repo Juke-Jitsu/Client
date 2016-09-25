@@ -1,4 +1,4 @@
-/*
+/* 
  * The MIT License
  *
  * Copyright 2016 Eli Davis.
@@ -22,15 +22,33 @@
  * THE SOFTWARE.
  */
 
-var app = require("angular").module('Juke-Jitsu');
-app.directive('jjQueue',                    require('./QueueDirective.js'));
-app.directive('jjSidenavToggleButton',      require('./SidenavToggleDirective.js'));
-app.directive('jjContent',                  require('./ContentDirective.js'));
-app.directive('jjSearch',                   require('./SearchDirective.js'));
-app.directive('jjSongListItem',             require('./SongListItemDirective.js'));
-app.directive('jjSongView',                 require('./SongViewDirective.js'));
-app.directive('jjSidebarNav',               require('./SidebarNavDirective.js'));
-app.directive('jjSongOptions',              require('./SongAvailableOptionsDirective.js'));
-app.directive('jjPage',                     require('./PageDirective.js'));
-app.directive('jjGreetingMessage',          require('./GreetingMessageDirective.js'));
-app.directive('jjNowPlaying',          require('./NowPlayingDirective.js'));
+module.exports = ContentDirective;
+
+function ContentDirective(){
+    return {
+        'restrict': 'E',
+        'templateUrl': 'partial/now-playing-directive.html',
+        'controllerAs': 'currentelyPlaying',
+        'controller': /*@ngInject*/ function ($scope, Server) {
+            
+            var self = this;
+
+            var _defaultName = "Juke-Jitsu";
+            var _defaultImageUrl = "img/circle/icon_512x512.png";
+
+            self.songName = _defaultName;
+            self.imageUrl = _defaultImageUrl;
+
+            Server.getNowPlaying$().safeApply($scope, function(nowPlaying){
+                if(nowPlaying){
+                    self.songName = nowPlaying.title ?  nowPlaying.title : _defaultName;
+                    self.imageUrl = nowPlaying.albumArtRef.length>0 ?  nowPlaying.albumArtRef[0].url : _defaultImageUrl;
+                } else {
+                    self.songName = _defaultName;
+                    self.imageUrl = _defaultImageUrl;
+                }
+            }).subscribe();
+            
+        }
+    };
+}
