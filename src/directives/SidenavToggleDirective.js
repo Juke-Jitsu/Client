@@ -1,4 +1,4 @@
-/* 
+/*
  * The MIT License
  *
  * Copyright 2016 Eli Davis.
@@ -26,7 +26,7 @@
 module.exports = SearchButtonDirective;
 
 /**
- * 
+ *
  * @param {type} $document
  * @returns {nm$_SearchButtonDirective.QueueDirective.SearchButtonDirectiveAnonym$0}
  * @ngInject
@@ -35,13 +35,13 @@ function SearchButtonDirective() {
 
     return {
         'restrict': 'E',
-        'template': '<md-button ng-click="toggleLeft()"><md-icon md-svg-src="svg/ic_view_list_white_24px.svg" aria-label="Menu "></md-icon>  Menu</md-button>',
+        'template': '<md-button class="invert" ng-click="toggleLeft()"><md-icon class="invert" md-svg-src="svg/ic_view_list_white_24px.svg" aria-label="Menu"></md-icon>  Menu</md-button>',
         'controller': /*@ngInject*/function ($scope, $mdSidenav) {
-            
+
             $scope.toggleLeft = function(){
                 $mdSidenav("left").toggle();
             };
-            
+
         }
     };
 }
