@@ -29,27 +29,29 @@ function QueueDirective() {
     return {
         'restrict': 'E',
         'templateUrl': 'partial/queue-directive.html',
-        'controller': /*@ngInject*/ function($scope, queueManager){
-            
+        'controller': /*@ngInject*/ function ($scope, queueManager) {
+
             $scope.results = [];
-            
-            $scope.currentlyPlaying = null;
-            
-            $scope.restOfQueue = [];
-            
-            queueManager.queue$.safeApply($scope, function(d){
-                
-                if($scope.results !== d){
+
+            queueManager.queue$.safeApply($scope, function (d) {
+
+                if ($scope.results !== d) {
                     $scope.results = d;
                 }
-                
-                if(d !== null && d !== null && d.length > 0){
-                    $scope.currentlyPlaying = d[0];
-                    $scope.restOfQueue = d.slice(1);
+
+                if (d !== null) {
+                    if (d.length > 0) {
+                        $scope.currentlyPlaying = d[0];
+                        $scope.restOfQueue = d.slice(1);
+                    } else {
+                        $scope.currentlyPlaying = null;
+                        $scope.restOfQueue = [];
+                    }
+
                 }
-                
+
             }).subscribe();
-            
+
         }
     };
 }

@@ -1,19 +1,21 @@
-    <h2 class="song-list-item-song-title" hide-xs ng-click="viewSong()">{{songData.title}}</h2>
-    <div layout="row" layout-padding>
-        <div flex="60" hide-xs >
-            <img ng-show="songData.albumArtRef !== undefined" ng-src="{{songData.albumArtRef[0].url}}"  width="100%" >
-        </div>
-        <div class="song-list-item-div" flex>
+<div layout="row" flex>
+    <div>
+        <img ng-click="viewSong()" ng-show="songData.albumArtRef !== undefined" ng-src="{{songData.albumArtRef[0].url}}" height="100%">
+    </div>
+    <div layout="column" class="song-list-item-div" flex="grow">
 
-            <h3 hide-gt-xs ng-click="viewSong()">{{songData.title}}</h3>
+        <div flex="70" layout-margin>
 
-            <!--<h1 hide-sm hide-xs hide-xs ng-click="viewSong()">{{songData.title}}</h1>-->
+            <h3 ng-click="viewSong()">{{songData.title}}</h3>
 
             <p>{{songData.artist}}</p>
             <p>{{songData.durationMillis| songTime}}</p>
-            <md-button ng-click="viewSong()" class="md-raised md-primary" hide-xs>
-                View
-            </md-button>
 
         </div>
+
+        <md-button flex ng-click="viewSong()" class="md-raised md-primary">
+            View
+        </md-button>
+
     </div>
+</div>

@@ -35,7 +35,7 @@ function SearchButtonDirective() {
 
     return {
         'restrict': 'E',
-        'template': '<md-button class="invert" ng-click="toggleLeft()"><md-icon class="invert" md-svg-src="svg/ic_view_list_white_24px.svg" aria-label="Menu"></md-icon>  Menu</md-button>',
+        'template': '<md-button style="min-width:0px;" class="invert" ng-click="toggleLeft()"><md-icon class="invert" md-svg-src="svg/ic_view_list_white_24px.svg" aria-label="Menu"></md-icon></md-button>',
         'controller': /*@ngInject*/function ($scope, $mdSidenav) {
 
             $scope.toggleLeft = function(){

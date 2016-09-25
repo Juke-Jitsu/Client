@@ -28,11 +28,11 @@ module.exports = GreetingMessageDirective;
 function GreetingMessageDirective() {
     return {
         'restrict': 'E',
-        'template': '<p style="font-size:15px; text-align:left; padding-left:6px; padding-top:8px;" ng-bind="message"></p>',
-        'controller': /*@ngInject*/function($scope, Server) {
+        'template': '<p style="font-size:15px; text-align:left; padding-left:6px; padding-top:8px;" ng-bind-html="message"></p>',
+        'controller': /*@ngInject*/function($scope, Server, $sce) {
             $scope.message = "";
             Server.getGreetingMessage$().safeApply($scope, function(msg){
-                $scope.message = msg;
+                $scope.message = $sce.trustAsHtml(msg);
             }).subscribe();
         }
     };
