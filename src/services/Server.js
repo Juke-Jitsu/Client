@@ -1,4 +1,4 @@
-/* 
+/*
  * The MIT License
  *
  * Copyright 2016 Eli Davis.
@@ -50,6 +50,8 @@ function Server() {
 
     self.entireQueue$ = new Rx.Subject();
 
+    self.greetingMessage$ = new Rx.ReplaySubject(1);
+
     socket.on(ToClientMessages.EntireQ, function (queue) {
         console.log(queue);
         self.entireQueue$.onNext(queue);
@@ -60,7 +62,7 @@ function Server() {
     };
 
     self.setVoteOnSong = function (nid, vote) {
-        
+
         if (!ourId) {
             toast.informUser("Unable to place vote");
             console.log("User does not have a finger print");
@@ -73,5 +75,15 @@ function Server() {
             vote: vote
         });
     };
+
+    socket.on(ToClientMessages.GreetingMessage, function (message) {
+        console.log(message);
+        self.greetingMessage$.onNext(message);
+    });
+
+    self.getGreetingMessage$ = function() {
+        return self.greetingMessage$;
+    }
+
 
 }

@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2016 Eli Davis.
+ * Copyright 2016 Hunter Holder
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +22,18 @@
  * THE SOFTWARE.
  */
 
-var app = require("angular").module('Juke-Jitsu');
-app.directive('jjQueue',                    require('./QueueDirective.js'));
-app.directive('jjSidenavToggleButton',      require('./SidenavToggleDirective.js'));
-app.directive('jjContent',                  require('./ContentDirective.js'));
-app.directive('jjSearch',                   require('./SearchDirective.js'));
-app.directive('jjSongListItem',             require('./SongListItemDirective.js'));
-app.directive('jjSongView',                 require('./SongViewDirective.js'));
-app.directive('jjSidebarNav',               require('./SidebarNavDirective.js'));
-app.directive('jjSongOptions',              require('./SongAvailableOptionsDirective.js'));
-app.directive('jjPage',                     require('./PageDirective.js'));
-app.directive('jjGreetingMessage',          require('./GreetingMessageDirective.js'));
+module.exports = GreetingMessageDirective;
+
+
+function GreetingMessageDirective() {
+    return {
+        'restrict': 'E',
+        'template': '<p style="font-size:15px; text-align:left; padding-left:6px; padding-top:8px;" ng-bind="message"></p>',
+        'controller': /*@ngInject*/function($scope, Server) {
+            $scope.message = "";
+            Server.getGreetingMessage$().safeApply($scope, function(msg){
+                $scope.message = msg;
+            }).subscribe();
+        }
+    };
+}
