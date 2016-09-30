@@ -31,7 +31,11 @@ function PageDirective() {
     return {
         'restrict': 'E',
         'templateUrl': 'partial/page-directive.html',
-        'controller' : /*@ngInject*/ function(Server, $element){
+        'controller' : /*@ngInject*/ function(Server, $element, $scope, $mdSidenav){
+
+            $scope.onSwipeRight = function(ev){
+                $mdSidenav("left").open();
+            };
 
             Server.currentConnectionStatus$.subscribe(function(status){
                 

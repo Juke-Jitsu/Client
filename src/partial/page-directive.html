@@ -23,7 +23,7 @@
         <md-button ng-click="showSearch = !showSearch"><md-icon md-svg-src="../svg/ic_search_white_24px.svg" aria-label="Search"></md-icon></md-button>
     </div>
 </md-toolbar>
-<div flex layout="row" layout-fill>
+<div md-swipe-right="onSwipeRight()" flex layout="row" layout-fill>
     <jj-sidebar-nav layout="column"></jj-sidebar-nav>
     <jj-content layout="column"></jj-content>
 </div>

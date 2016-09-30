@@ -40,6 +40,10 @@ function SidebarNavDirective() {
                         });
             };
             
+            $scope.onSwipeLeft = function(ev){
+                $mdSidenav("left").close();
+            };
+
             $scope.toggleSidenav = function(menuId) {
                 $mdSidenav(menuId).toggle();
             };
