@@ -33,7 +33,7 @@ function SongOptionsDirective() {
         "scope": {
             songData: '=song'
         },
-        "controller": /* @ngInject */ function ($scope, queueManager, votingManager, observeOnScope) {
+        "controller": /* @ngInject */ function ($scope, queueManager, votingManager, observeOnScope, Server) {
 
             var self = this;
 
@@ -48,7 +48,7 @@ function SongOptionsDirective() {
                 }
             });
 
-            self.songData$.combineLatest(queueManager.queue$, function(song, queue) {
+            self.songData$.combineLatest(Server.entireQueue$, function(song, queue) {
                 return queue;
             }).safeApply($scope, function (queue) {
 

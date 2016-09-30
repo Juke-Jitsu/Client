@@ -29,27 +29,15 @@ function QueueDirective() {
     return {
         'restrict': 'E',
         'templateUrl': 'partial/queue-directive.html',
-        'controller': /*@ngInject*/ function ($scope, queueManager) {
+        'controller': /*@ngInject*/ function ($scope, Server) {
 
             $scope.results = [];
 
-            queueManager.queue$.safeApply($scope, function (d) {
+            $scope.queueEmpty = true;
 
-                if ($scope.results !== d) {
-                    $scope.results = d;
-                }
-
-                if (d !== null) {
-                    if (d.length > 0) {
-                        $scope.currentlyPlaying = d[0];
-                        $scope.restOfQueue = d.slice(1);
-                    } else {
-                        $scope.currentlyPlaying = null;
-                        $scope.restOfQueue = [];
-                    }
-
-                }
-
+            Server.entireQueue$.safeApply($scope, function(queue){
+                $scope.results = queue;
+                $scope.queueEmpty = !queue || queue.length === 0; 
             }).subscribe();
 
         }

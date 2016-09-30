@@ -38,7 +38,7 @@ function PageDirective() {
                 console.log("Connection status: ", status);
 
                 if(status === ServerStatusType.Connect){
-                    $element[0].style.display = "block";
+                    $element[0].style.display = "flex";
                 }
 
                 if(status !== ServerStatusType.Connect){

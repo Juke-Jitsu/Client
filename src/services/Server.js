@@ -49,7 +49,7 @@ function Server(Toast) {
 
     self.server$ = new Rx.Subject();
 
-    self.entireQueue$ = new Rx.Subject();
+    self.entireQueue$ = new Rx.ReplaySubject(1);
 
     self.greetingMessage$ = new Rx.ReplaySubject(1);
 

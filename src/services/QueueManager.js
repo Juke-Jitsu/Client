@@ -32,24 +32,6 @@ function QueueManager(Server, Toast, sessionManager) {
 
     var self = this;
 
-    var nowPlaying = null;
-
-    self.queue$ = Server.entireQueue$.share();
-    
-    self.queue$.subscribe(function (d) {
-        if(d !== null && d !== undefined && d.length > 0){
-            nowPlaying = d[0];
-        }
-    });
-    
-    self.viewNowPlaying = function(){
-        if(nowPlaying !== null){
-            sessionManager.switchToSongView(nowPlaying);
-        } else {
-            Toast.informUser("No song is currentely playing.");
-        }
-    };
-
     self.addSong = function (song) {
         Server.addSongToQueue(song);
     };

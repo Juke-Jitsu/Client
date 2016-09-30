@@ -1,12 +1,12 @@
-<md-list layout="row" layout-margin layout-wrap flex layout-align="center none">
+<div layout="column" class="queue-empty" flex="90" layout-align="center center" layout-padding ng-show="queueEmpty">
+    <h1 id="nothingInQueueMessage">Please add something to the Queue</h1>
+</div>
 
-    <div layout="column" class="queue-empty" flex="90" layout-align="center center" layout-padding ng-show="!currentlyPlaying">
-        <h1 id="nothingInQueueMessage">Please add something to the Queue</h1>
-    </div>
+<md-list layout="row" layout-align="start start" layout-margin layout-wrap flex >
 
-    <md-list-item style="padding:0px;" class="song-list-item" md-whiteframe="8" class="md-2-line" flex-xs="95" flex-sm="45" flex-md="45"
+    <md-list-item  style="padding:0px;" class="song-list-item" md-whiteframe="8" class="md-2-line" flex-xs="95" flex-sm="45" flex-md="45"
         flex-gt-md="30" ng-repeat="item in results">
-        <jj-song-list-item song="item"></jj-song-list-item>
+        <jj-song-list-item flex song="item"></jj-song-list-item>
     </md-list-item>
 
 </md-list>

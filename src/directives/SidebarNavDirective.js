@@ -31,7 +31,7 @@ function SidebarNavDirective() {
         "restrict": "E",
         "templateUrl": "partial/sidebar-nav-directive.html",
         clickOutsideToClose: true,
-        "controller": /* @ngInject */ function ($scope, $timeout, $mdSidenav, $log, sessionManager, queueManager, $mdDialog) {
+        "controller": /* @ngInject */ function ($scope, $timeout, $mdSidenav, $log, sessionManager, $mdDialog) {
             $scope.close = function () {
                 // Component lookup should always be available since we are not using `ng-if`
                 $mdSidenav('left').close()
@@ -54,10 +54,6 @@ function SidebarNavDirective() {
                 $mdSidenav('left').close();
             };
 
-            $scope.nowPlaying = function () {
-                queueManager.viewNowPlaying();
-                $mdSidenav('left').close();
-            };
 
             $scope.launchAbout = function () {
                 $mdDialog.show({

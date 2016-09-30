@@ -1,16 +1,13 @@
 <div layout="row" flex>
-    <div flex>
-        <img ng-click="viewSong()" ng-show="songData.albumArtRef !== undefined" ng-src="{{songData.albumArtRef[0].url}}" height="100%" style="width:100%;">
+    <div>
+        <img ng-click="viewSong()" ng-show="songData.albumArtRef !== undefined" ng-src="{{songData.albumArtRef[0].url}}" height="100%">
     </div>
-    <div layout="column" class="song-list-item-div" flex>
+    <div layout="column" class="song-list-item-div" flex layout-fill>
 
         <div flex="70" layout-margin>
-
             <h3 ng-click="viewSong()">{{songData.title}}</h3>
-
             <p>{{songData.artist}}</p>
             <p>{{songData.durationMillis| songTime}}</p>
-
         </div>
 
         <md-button flex ng-click="viewSong()" class="md-raised md-primary" style="color:white">
