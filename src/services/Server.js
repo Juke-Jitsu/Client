@@ -28,13 +28,14 @@ var ToClientMessages = SocketMessageType.ToClientMessages;
 var ToServerMessages = SocketMessageType.ToServerMessages;
 var Fingerprint = require('fingerprintjs2');
 var Rx = require('rx');
+var ServerStatusType = require('../common/ServerStatusType.js');
 
 module.exports = Server;
 
 /*
  * @ngInject
  */
-function Server() {
+function Server(Toast) {
 
     var self = this;
 
@@ -82,16 +83,34 @@ function Server() {
         self.nowPlaying$.onNext(message);
     });
 
-    self.getNowPlaying$ = function() {
+    self.getNowPlaying$ = function () {
         return self.nowPlaying$;
-    }
+    };
 
     socket.on(ToClientMessages.GreetingMessage, function (message) {
         self.greetingMessage$.onNext(message);
     });
 
-    self.getGreetingMessage$ = function() {
+    self.getGreetingMessage$ = function () {
         return self.greetingMessage$;
+    };
+
+    self.currentConnectionStatus$ = new Rx.Subject();
+
+    var createMessageListener = function (messageType) {
+        socket.on(ServerStatusType[messageType], function () {
+            self.currentConnectionStatus$.onNext(ServerStatusType[messageType]);
+        });
+    };
+
+    for (var messageType in ServerStatusType) {
+        createMessageListener(messageType);
     }
+
+    self.currentConnectionStatus$.subscribe(function (status) {
+        if (status !== ServerStatusType.Connect) {
+            Toast.informUser("Attempting to reconnect...");
+        }
+    });
 
 }

@@ -22,12 +22,31 @@
  * THE SOFTWARE.
  */
 
+var ServerStatusType = require('../common/ServerStatusType.js');
+
 module.exports = PageDirective;
 
 function PageDirective() {
 
     return {
         'restrict': 'E',
-        'templateUrl': 'partial/page-directive.html'
+        'templateUrl': 'partial/page-directive.html',
+        'controller' : /*@ngInject*/ function(Server, $element){
+
+            Server.currentConnectionStatus$.subscribe(function(status){
+                
+                console.log("Connection status: ", status);
+
+                if(status === ServerStatusType.Connect){
+                    $element[0].style.display = "block";
+                }
+
+                if(status !== ServerStatusType.Connect){
+                    $element[0].style.display = "none";
+                }
+
+            });
+
+        }
     };
 }

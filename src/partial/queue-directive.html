@@ -4,17 +4,9 @@
         <h1 id="nothingInQueueMessage">Please add something to the Queue</h1>
     </div>
 
-    <!--<md-list-item style="padding:0px;" class="song-list-item" layout="column" md-whiteframe="8" flex="100" ng-show="currentlyPlaying">
-        <jj-song-list-item flex layout="column" song="currentlyPlaying"></jj-song-list-item>
+    <md-list-item style="padding:0px;" class="song-list-item" md-whiteframe="8" class="md-2-line" flex-xs="95" flex-sm="45" flex-md="45"
+        flex-gt-md="30" ng-repeat="item in results">
+        <jj-song-list-item song="item"></jj-song-list-item>
     </md-list-item>
-
-    <md-list-item style="padding:0px" layout="column" class="song-list-item" md-whiteframe="8" flex-xs="100" flex-sm="45" flex-md="45" flex-gt-md="30" ng-repeat="item in results" ng-show="!$first">
-        <jj-song-list-item flex layout="column" song="item"></jj-song-list-item>
-    </md-list-item>-->
-
-        <md-list-item style="padding:0px;" class="song-list-item" md-whiteframe="8" class="md-2-line" flex-xs="95" flex-sm="45" flex-md="45"
-            flex-gt-md="30" ng-repeat="item in results">
-            <jj-song-list-item song="item"></jj-song-list-item>
-        </md-list-item>
 
 </md-list>
