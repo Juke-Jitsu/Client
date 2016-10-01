@@ -1,6 +1,7 @@
-<div layout-margin layout="row" layout-wrap>
-	<md-list-item style="padding:0px;" class="song-list-item" md-whiteframe="8" class="md-2-line" flex-xs="95" flex-sm="45" flex-md="45"
-		flex-gt-md="30" ng-repeat="item in searchResults">
-		<jj-song-list-item flex song="item"></jj-song-list-item>
-	</md-list-item>
+<div layout="row" layout-wrap>
+	<div flex-xs="100" flex-sm="50" flex-md="50" flex-gt-md="33" ng-repeat="item in searchResults">
+		<md-list-item style="padding: 0px; margin:10px;" class="song-list-item" md-whiteframe="8" class="md-2-line">
+			<jj-song-list-item flex song="item"></jj-song-list-item>
+		</md-list-item>
+	</div>
 </div>
