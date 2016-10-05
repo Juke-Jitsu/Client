@@ -47,11 +47,7 @@ function Server(Toast) {
         ourId = result;
     });
 
-    self.server$ = new Rx.Subject();
-
     self.entireQueue$ = new Rx.ReplaySubject(1);
-
-    self.greetingMessage$ = new Rx.ReplaySubject(1);
 
     self.nowPlaying$ = new Rx.ReplaySubject(1);
 
@@ -87,13 +83,6 @@ function Server(Toast) {
         return self.nowPlaying$;
     };
 
-    socket.on(ToClientMessages.GreetingMessage, function (message) {
-        self.greetingMessage$.onNext(message);
-    });
-
-    self.getGreetingMessage$ = function () {
-        return self.greetingMessage$;
-    };
 
     self.currentConnectionStatus$ = new Rx.Subject();
 
@@ -112,5 +101,46 @@ function Server(Toast) {
             Toast.informUser("Attempting to reconnect...");
         }
     });
+
+    self.setUsername = function (newName) {
+        socket.emit(ToServerMessages.SetUsername, {
+            uid: ourId,
+            name: newName
+        });
+    };
+
+    self.setAdminPassword = function (newPassword) {
+        socket.emit(ToServerMessages.SetAdminPassword, {
+            uid: ourId,
+            password: newPassword
+        });
+    };
+
+
+    /**
+     * START: New method of listening to protocols.
+     * TODO: Older protocols need to transition to using this method.
+     * 
+     * Now instread of using a accessor method to get a manually
+     * created stream we just iterate over all protocols and then
+     * get a certain message$ by server$[messageType]
+     */
+
+    self.server$ = {};
+
+    var addClientMessageStream = function (messageType) {
+
+        var newStream = new Rx.ReplaySubject(1);
+
+        socket.on(messageType, function (message) {
+            newStream.onNext(message);
+        });
+
+        self.server$[messageType] = newStream;
+    }
+
+    for (var messageType in ToClientMessages) {
+        addClientMessageStream(ToClientMessages[messageType]);
+    }
 
 }

@@ -42,7 +42,6 @@ function SongOptionsDirective() {
             self.songData$ = observeOnScope($scope, 'songData');
 
             self.songData$.subscribe(function (change) {
-                console.log(change);
                 if($scope.songData){
                     $scope.usersVote = votingManager.getCurrentVoteOnSong($scope.songData.nid);
                 }

@@ -1,0 +1,30 @@
+<md-dialog flex="40" layout="column" style="width:300px; height:400px;">
+    <md-dialog-content layout-padding layout="column" flex>
+
+        <h2>Settings</h2>
+
+        <md-input-container style="margin-bottom: 0px;" class="md-block" flex-gt-sm>
+            <label>User name</label>
+            <input ng-model="setUsername">
+        </md-input-container>
+
+        <div ng-if="admin">
+            <h3>You have admin privledges!</h3>
+        </div>
+
+        <div ng-hide="admin">
+            <md-input-container style="margin-top: 0px;" class="md-block" flex-gt-sm>
+                <label>Password for gaining admin privlages</label>
+                <input type="password" ng-model="adminPassword">
+            </md-input-container>
+        </div>
+
+    </md-dialog-content>
+
+    <md-dialog-actions>
+        <md-button ng-click="closeDialog()" class="md-primary md-raised" style="color: white;">
+            Close
+        </md-button>
+    </md-dialog-actions>
+
+</md-dialog>

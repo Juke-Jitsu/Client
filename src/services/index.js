@@ -30,3 +30,4 @@ app.service('sessionManager',   require('./SessionManager.js'));
 app.service('votingManager',   require('./VotingManager.js'));
 app.service('Server',   require('./Server.js'));
 app.service('PreventBackingout', require('./PreventBackingout'));
+app.service('ProfileSettings', require('./ProfileSettings'));

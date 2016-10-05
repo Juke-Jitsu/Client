@@ -22,6 +22,9 @@
  * THE SOFTWARE.
  */
 
+var ToClientMessages = require('juke-protocols').ToClientMessages;
+
+
 module.exports = GreetingMessageDirective;
 
 
@@ -31,7 +34,7 @@ function GreetingMessageDirective() {
         'template': '<p style="font-size:15px; text-align:left; padding-left:6px; padding-top:8px;" ng-bind-html="message"></p>',
         'controller': /*@ngInject*/function($scope, Server, $sce) {
             $scope.message = "";
-            Server.getGreetingMessage$().safeApply($scope, function(msg){
+            Server.server$[ToClientMessages.GreetingMessage].safeApply($scope, function(msg){
                 $scope.message = $sce.trustAsHtml(msg);
             }).subscribe();
         }

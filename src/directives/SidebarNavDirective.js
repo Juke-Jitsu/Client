@@ -31,20 +31,20 @@ function SidebarNavDirective() {
         "restrict": "E",
         "templateUrl": "partial/sidebar-nav-directive.html",
         clickOutsideToClose: true,
-        "controller": /* @ngInject */ function ($scope, $timeout, $mdSidenav, $log, sessionManager, $mdDialog) {
+        "controller": /* @ngInject */ function ($scope, $timeout, $mdSidenav, $log, sessionManager, $mdDialog, ProfileSettings) {
             $scope.close = function () {
                 // Component lookup should always be available since we are not using `ng-if`
                 $mdSidenav('left').close()
-                        .then(function () {
-                            $log.debug("close LEFT is done");
-                        });
+                    .then(function () {
+                        $log.debug("close LEFT is done");
+                    });
             };
-            
-            $scope.onSwipeLeft = function(ev){
+
+            $scope.onSwipeLeft = function (ev) {
                 $mdSidenav("left").close();
             };
 
-            $scope.toggleSidenav = function(menuId) {
+            $scope.toggleSidenav = function (menuId) {
                 $mdSidenav(menuId).toggle();
             };
 
@@ -58,12 +58,13 @@ function SidebarNavDirective() {
                 $mdSidenav('left').close();
             };
 
+            $scope.viewProfileSettings = ProfileSettings.viewProfileSettings;
 
             $scope.launchAbout = function () {
                 $mdDialog.show({
                     clickOutsideToClose: true,
                     templateUrl: "partial/dialog/about-juke-jitsu-directive.html",
-                    controller: /*ngInject*/ function ($scope, $mdDialog) {
+                    controller: /*@ngInject*/ function ($scope, $mdDialog) {
 
                         $scope.closeDialog = function () {
                             // Easily hides most recent dialog shown...
@@ -73,6 +74,8 @@ function SidebarNavDirective() {
 
                     }
                 });
+
+                
             };
         }
     };
