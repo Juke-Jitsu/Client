@@ -20,7 +20,6 @@ function ProfileSettings($mdDialog, Server) {
     self.adminPrivledgeLevel = Server.server$[ToClientMessages.SetAdminPrivledgeLevel];
 
 
-
     self.viewProfileSettings = function () {
         $mdDialog.show({
             clickOutsideToClose: true,

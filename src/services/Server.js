@@ -35,7 +35,7 @@ module.exports = Server;
 /*
  * @ngInject
  */
-function Server(Toast) {
+function Server(Toast, $http) {
 
     var self = this;
 
@@ -59,6 +59,28 @@ function Server(Toast) {
     self.addSongToQueue = function (song) {
         socket.emit(ToServerMessages.AddToQ, song);
     };
+
+    self.pauseSong = function(){
+        $http({
+            method: 'POST',
+            url: '/api/pauseQ'
+        }).then(function successCallback(response) {
+            console.log(response);
+        }, function errorCallback(response) {
+            console.log(response);
+        });
+    }
+
+    self.playSong = function(){
+        $http({
+            method: 'POST',
+            url: '/api/playQ'
+        }).then(function successCallback(response) {
+            console.log(response);
+        }, function errorCallback(response) {
+            console.log(response);
+        });
+    }
 
     self.setVoteOnSong = function (nid, vote) {
 

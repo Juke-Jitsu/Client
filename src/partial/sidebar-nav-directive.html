@@ -7,6 +7,19 @@
     <md-divider></md-divider>
     
     <md-list>
+
+        <md-item ng-if="showPlayButton$">
+            <div class="md-list-item-text">
+                <md-button ng-click="playSong()"><md-icon class="sidebar-nav-icon" md-svg-src="" aria-label="Play"></md-icon>  Play</md-button>
+            </div>
+        </md-item>
+
+        <md-item ng-if="showPauseButton$">
+            <div class="md-list-item-text">
+                <md-button ng-click="pauseSong()"><md-icon class="sidebar-nav-icon" md-svg-src="../svg/ic_play_arrow_white_24px.svg" aria-label="Pause"></md-icon>  Pause</md-button>
+            </div>
+        </md-item>
+
         <md-item>
             <div class="md-list-item-text">
                 <md-button ng-click="queue()"><md-icon class="sidebar-nav-icon" md-svg-src="../svg/ic_queue_music_white_24px.svg" aria-label="Queue "></md-icon>  Queue</md-button>

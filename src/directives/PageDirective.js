@@ -37,6 +37,8 @@ function PageDirective() {
                 $mdSidenav("left").open();
             };
 
+            $scope.showSearch = false;
+
             Server.currentConnectionStatus$.subscribe(function(status){
                 
                 console.log("Connection status: ", status);

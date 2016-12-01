@@ -22,16 +22,17 @@
  * THE SOFTWARE.
  */
 
+var ToClientMessages = require('juke-protocols').ToClientMessages;
 
 module.exports = SidebarNavDirective;
 
 function SidebarNavDirective() {
 
     return {
-        "restrict": "E",
-        "templateUrl": "partial/sidebar-nav-directive.html",
+        restrict: "E",
+        templateUrl: "partial/sidebar-nav-directive.html",
         clickOutsideToClose: true,
-        "controller": /* @ngInject */ function ($scope, $timeout, $mdSidenav, $log, sessionManager, $mdDialog, ProfileSettings) {
+        controller: /* @ngInject */ function ($scope, $timeout, $mdSidenav, $log, sessionManager, $mdDialog, ProfileSettings, Server) {
             $scope.close = function () {
                 // Component lookup should always be available since we are not using `ng-if`
                 $mdSidenav('left').close()
@@ -59,6 +60,34 @@ function SidebarNavDirective() {
             };
 
             $scope.viewProfileSettings = ProfileSettings.viewProfileSettings;
+
+
+            Server.server$[ToClientMessages.PlayerStatus].subscribe(function(status){
+                console.log('Player Status:  ', status);
+            });
+
+            $scope.pauseSong = Server.pauseSong;
+            $scope.playSong = Server.playSong;
+
+
+            $scope.showPlayButton$ = ProfileSettings.adminPrivledgeLevel.combineLatest(
+                Server.server$[ToClientMessages.PlayerStatus].map(function(status){
+                    return status === "paused";
+                }),
+                function(admin, paused){
+                    console.log("Show play button: ", admin, paused);
+                    return admin && paused;
+                }
+            );
+
+            $scope.showPauseButton$ = ProfileSettings.adminPrivledgeLevel.combineLatest(
+                Server.server$[ToClientMessages.PlayerStatus].map(function(status){
+                    return status === "playing";
+                }),
+                function(admin, paused){
+                    return admin && paused;
+                }
+            );
 
             $scope.launchAbout = function () {
                 $mdDialog.show({
