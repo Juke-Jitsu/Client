@@ -71,6 +71,17 @@ function Server(Toast, $http) {
         });
     }
 
+    self.skipSong = function(){
+        $http({
+            method: 'POST',
+            url: '/api/skipQ'
+        }).then(function successCallback(response) {
+            console.log(response);
+        }, function errorCallback(response) {
+            console.log(response);
+        });
+    }
+
     self.playSong = function(){
         $http({
             method: 'POST',

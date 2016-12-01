@@ -66,26 +66,39 @@ function SidebarNavDirective() {
                 console.log('Player Status:  ', status);
             });
 
+
+            // Admin controls
             $scope.pauseSong = Server.pauseSong;
             $scope.playSong = Server.playSong;
+            $scope.skipSong = Server.skipSong;
 
-
+            // Whether or not you can resume a song
             $scope.showPlayButton$ = ProfileSettings.adminPrivledgeLevel.combineLatest(
                 Server.server$[ToClientMessages.PlayerStatus].map(function(status){
                     return status === "paused";
                 }),
                 function(admin, paused){
-                    console.log("Show play button: ", admin, paused);
                     return admin && paused;
                 }
             );
 
+            // Whether or not you can pause a song
             $scope.showPauseButton$ = ProfileSettings.adminPrivledgeLevel.combineLatest(
                 Server.server$[ToClientMessages.PlayerStatus].map(function(status){
                     return status === "playing";
                 }),
                 function(admin, paused){
                     return admin && paused;
+                }
+            );
+
+            // Whether or not you can skip a song
+            $scope.showSkipButton$ = ProfileSettings.adminPrivledgeLevel.combineLatest(
+                Server.server$[ToClientMessages.PlayerStatus].map(function(status){
+                    return status !== "finish";
+                }),
+                function(admin, notFinished){
+                    return admin && notFinished;
                 }
             );
 

@@ -10,13 +10,19 @@
 
         <md-item ng-if="showPlayButton$">
             <div class="md-list-item-text">
-                <md-button ng-click="playSong()"><md-icon class="sidebar-nav-icon" md-svg-src="" aria-label="Play"></md-icon>  Play</md-button>
+                <md-button ng-click="playSong()"><md-icon class="sidebar-nav-icon" md-svg-src="../svg/ic_play_arrow_white_24px.svg" aria-label="Play"></md-icon>  Play</md-button>
             </div>
         </md-item>
 
         <md-item ng-if="showPauseButton$">
             <div class="md-list-item-text">
-                <md-button ng-click="pauseSong()"><md-icon class="sidebar-nav-icon" md-svg-src="../svg/ic_play_arrow_white_24px.svg" aria-label="Pause"></md-icon>  Pause</md-button>
+                <md-button ng-click="pauseSong()"><md-icon class="sidebar-nav-icon" md-svg-src="" aria-label="Pause"></md-icon>  Pause</md-button>
+            </div>
+        </md-item>
+
+        <md-item ng-if="showSkipButton$">
+            <div class="md-list-item-text">
+                <md-button ng-click="skipSong()"><md-icon class="sidebar-nav-icon" md-svg-src="" aria-label="Skip"></md-icon>  Skip</md-button>
             </div>
         </md-item>
 
